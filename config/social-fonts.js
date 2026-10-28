@@ -5,7 +5,10 @@
  const $$ = selector => [...document.querySelectorAll(selector)];
  const modal = $('#social-font-modal');
  const toggle = $('#social-font-toggle');
- const DEFAULT_THEME = '#EE6699';
+ // The backend writes the chosen default into built social.css at build time.
+ // Browser overrides remain personal; Default returns to that CSS value.
+ const cssAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+ const DEFAULT_THEME = /^#[0-9a-fA-F]{6}$/.test(cssAccent) ? cssAccent.toUpperCase() : '#F5005F';
  const themeKey = 'y1-social-v1-theme-color';
  const themePicker = $('#social-theme-picker');
  const themeHex = $('#social-theme-hex');
