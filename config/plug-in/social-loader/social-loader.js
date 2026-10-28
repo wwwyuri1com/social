@@ -103,6 +103,22 @@
    put('language', language); draw();
  }
 
+ function renderTypes() {
+   const area = $('[aria-label="Murmur type"]');
+   area.querySelectorAll('[data-type]:not([data-type="all"])').forEach(button => button.remove());
+   (index.categories || []).forEach(category => {
+     if (!/^10[1-9]$/.test(category.code)) return;
+     const button = document.createElement('button');
+     button.type = 'button'; button.dataset.type = category.code;
+     button.textContent = category.name || category.code;
+     area.append(button);
+   });
+   area.querySelectorAll('[data-type]').forEach(button => button.addEventListener('click', () => {
+     type = button.dataset.type; limit = 20;
+     $$('[data-type]').forEach(x => x.classList.toggle('selected', x === button)); draw();
+   }));
+ }
+
  function renderCharacters() {
    const area = $('#social-characters'); area.replaceChildren();
    (index.characters || []).forEach(name => {
@@ -131,9 +147,6 @@
    $('#filter-toggle').setAttribute('aria-expanded', String(tab === 'filter'));
    draw();
  }));
- $$('[data-type]').forEach(button => button.addEventListener('click', () => {
-   type = button.dataset.type; limit = 20; $$('[data-type]').forEach(x => x.classList.toggle('selected', x === button)); draw();
- }));
  $('#clear-characters').addEventListener('click', () => {selected.clear(); renderCharacters(); limit = 20; draw();});
  $('#social-main').addEventListener('click', event => {
    const heart = event.target.closest('[data-like]'); if (!heart) return;
@@ -150,7 +163,7 @@
    try {
      const response = await fetch('data/index.json', {cache: 'no-store'});
      if (!response.ok) throw Error('Cannot load Social index');
-     index = await response.json(); renderCharacters(); draw();
+     index = await response.json(); renderTypes(); renderCharacters(); draw();
    } catch (error) {$('#social-main').innerHTML = '<p class="social-message">Social is temporarily unavailable.</p>'; console.error(error);}
  }
  init();
