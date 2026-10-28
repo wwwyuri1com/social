@@ -1,0 +1,374 @@
+/* Social front page: the same compact, centered mobile column as WWW/Music. */
+:root {
+  font-family: "Noto Serif TC", "Source Han Serif TC", serif;
+  --reader-family: "Noto Serif TC", "Source Han Serif TC", serif;
+  --accent: #F5005F;
+  --social-accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --social-accent-line: color-mix(in srgb, var(--accent) 52%, transparent);
+  background: linear-gradient(136deg, #282327 0%, #2a2a2a 100%) fixed;
+  min-height: 100%;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #242124;
+}
+
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: #242124; }
+html::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 2px solid #242124;
+  border-radius: 10px;
+}
+
+body {
+  background: transparent;
+  min-height: 100dvh;
+}
+
+.social-shell {
+  width: calc(100% - 16px);
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+/* Music-style top-left brand, linked to the main YURI NO1 website. */
+.social-head {
+  min-height: 94px;
+  padding: max(18px, env(safe-area-inset-top)) 14px 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.social-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  min-width: 0;
+}
+
+.social-head .brand {
+  color: #fff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .35);
+}
+
+.social-head .brand-subtitle {
+  padding-left: 10px;
+  color: #ffffff90;
+  font-size: .5rem;
+  letter-spacing: .035em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.social-head .social-lang {
+  flex-shrink: 0;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.social-lang button[data-language] {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.social-lang .social-font-toggle {
+  width: 27px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: 700 26px/1 system-ui, sans-serif;
+}
+
+.social-lang .social-font-toggle:hover,
+.social-lang .social-font-toggle[aria-expanded="true"] {
+  background: transparent;
+  color: color-mix(in srgb, var(--accent) 80%, white 20%);
+}
+
+/*button:hover {  box-shadow: 0px 4px 0px 0px color-mix(in srgb, var(--accent) 52%, transparent); color: var(--accent);}*/
+button.selected, button[aria-pressed="true"] { background: var(--social-accent-soft); }
+button:focus-visible, a:focus-visible, input:focus-visible { outline-color: var(--accent); }
+
+.social-nav button {
+  font-size: 16px;
+  border: 0px;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+}
+
+.social-nav button:hover {
+  color: var(--accent);
+  border-color: transparent;
+  border-bottom-color: #ffffff85;
+  box-shadow: none;
+}
+
+.social-nav button.selected {
+  background: transparent;
+  color: #fff;
+  border-color: transparent;
+  border-bottom: 4px solid var(--accent);
+  box-shadow: none;
+}
+
+.social-nav button.selected:hover {
+  color: var(--accent);
+}
+
+.social-characters label:has(input:checked),
+.social-option-head button.selected {
+  border-color: var(--accent);
+  background: var(--social-accent-soft);
+}
+
+.social-characters input {
+  accent-color: var(--accent);
+}
+
+.social-options {
+  border-bottom: 0;
+}
+
+.social-filter-results {
+  width: fit-content;
+  margin: 6px auto 7px;
+  padding: 5px 13px;
+  border-radius: 100px;
+  background: var(--social-accent-soft);
+  color: var(--accent);
+  font: 600 11px/1.5 system-ui, sans-serif;
+  letter-spacing: .04em;
+  text-align: center;
+}
+
+.social-card {
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1), -5px 15px 11px rgb(0 0 0 / 7%);
+}
+
+.social-hr {
+  background: var(--social-accent-line);
+}
+
+.social-load button {
+  border-color: var(--social-accent-line);
+}
+
+.social-heart {
+  background: var(--social-accent-soft);
+  border-radius: 7px;
+  color: var(--accent);
+}
+
+.social-heart[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--accent);
+}
+
+.social-heart[aria-pressed="true"] svg {
+  fill: currentColor;
+}
+
+.social-content[data-social-font-lang="en"] {
+  font-family: var(--social-font-family-en, var(--reader-family));
+  font-size: var(--social-font-size-en, 1.1rem);
+  line-height: var(--social-font-line-en, 1.75);
+}
+
+.social-content[data-social-font-lang="zh"] {
+  font-family: var(--social-font-family-zh, var(--reader-family));
+  font-size: var(--social-font-size-zh, 1.1rem);
+  line-height: var(--social-font-line-zh, 1.75);
+}
+
+.social-footer {
+  align-items: baseline;
+}
+
+.social-footer a:hover {
+  color: var(--accent);
+}
+
+/* Dark counterpart of WWW Reader's six-field font dialog. */
+.social-font-modal {
+  position: fixed;
+  box-sizing: border-box;
+  width: min(340px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  margin: auto;
+  padding: 0;
+  color: #f1edef;
+  background: #171416;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 11px;
+  box-shadow: 0 18px 60px #0009;
+}
+
+.social-font-modal::backdrop {
+  background: rgba(7, 7, 9, .68);
+  backdrop-filter: blur(3px);
+}
+
+.social-font-dialog {
+  padding: 22px 20px 18px;
+}
+
+.social-theme-section {
+  margin-bottom: 20px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--social-accent-line);
+}
+.social-theme-section h2 { margin-bottom: 14px; }
+.social-theme-controls {
+  display: grid;
+  grid-template-columns: 45px minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: end;
+}
+.social-theme-controls input[type="color"] {
+  display: block;
+  width: 45px;
+  height: 42px;
+  padding: 3px;
+  border: 1px solid #51494e;
+  border-radius: 7px;
+  background: #242024;
+  cursor: pointer;
+}
+.social-theme-controls label {
+  margin: 0;
+  color: #ddd5d9;
+  font: 12px/1.4 system-ui, sans-serif;
+}
+.social-theme-controls input[type="text"] {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #51494e;
+  border-radius: 6px;
+  background: #242024;
+  color: #f3eef1;
+  font: 14px ui-monospace, monospace;
+}
+.social-theme-controls button {
+  height: 42px;
+  padding-inline: 10px;
+  border-color: var(--social-accent-line);
+}
+.social-theme-note {
+  color: #aaa1a6;
+  font: 11px/1.5 system-ui, sans-serif;
+  margin: 11px 0 0;
+}
+
+.social-font-dialog h2 {
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--social-accent-line);
+  font: 400 22px/1.45 Georgia, serif;
+}
+
+.social-font-field {
+  min-width: 0;
+  margin-bottom: 14px;
+}
+
+.social-font-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ddd5d9;
+  font: 15px/1.4 Georgia, serif;
+}
+
+.social-font-field select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 9px;
+  border: 1px solid #51494e;
+  border-radius: 4px;
+  color: #f3eef1;
+  background: #242024;
+  font-size: 15px;
+}
+
+.social-font-field select:focus-visible {
+  outline-color: var(--accent);
+}
+
+.social-font-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.social-font-row + .social-font-field {
+  padding-top: 17px;
+  border-top: 1px solid var(--social-accent-line);
+}
+
+.social-font-preview {
+  margin: 18px 0 20px;
+  text-align: center;
+  color: #f0ebee;
+}
+
+.social-font-preview span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+#social-font-preview-note {
+  margin: 9px 0;
+}
+
+.social-font-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.social-font-actions button {
+  min-width: 60px;
+  padding: 9px 13px;
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (max-width: 320px) {
+  .social-head {
+    padding-inline: 8px;
+  }
+
+  .social-head .brand {
+    font-size: 10px;
+    letter-spacing: .12em;
+  }
+
+  .social-lang button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .social-lang button[data-language] {
+    font-size: 19px;
+  }
+
+  .social-footer {
+    gap: 8px;
+    font-size: 10px;
+    padding-inline: 4px;
+  }
+}
